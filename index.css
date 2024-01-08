@@ -1,0 +1,302 @@
+/* general */
+
+html, body {
+    margin: 0;
+}
+
+html {
+    overflow-y: hidden;
+}
+
+h2 {
+    text-align: center;
+}
+
+body {
+    font-family: "Source Sans 3", sans-serif;
+    background-color: black;
+    color: aliceblue;
+    height: 100vh;
+    display: flow-root;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-snap-type: block proximity;
+}
+
+/* title */
+
+#title {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#title::before {
+    content: "";
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+#title > p {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+/* projects */
+
+.project {
+    scroll-snap-align: start;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    view-timeline-name: --timeline;
+}
+
+.project > h2 {
+    margin-block: 0;
+    padding-block: 0.83em;
+    background-color: midnightblue;
+}
+
+.tip {
+    background-color: midnightblue;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 1.25em;
+}
+
+.tip::before {
+    content: "";
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.tip > div {
+    flex-basis: 0;
+    flex-grow: 1;
+    font-size: 1.5em;
+    color: color-mix(in srgb, aliceblue 50%, transparent);
+}
+
+.window {
+    flex-grow: 1;
+    clip-path: content-box;
+    text-shadow: 1px 1px 0 midnightblue;
+}
+
+.window a {
+    color: dodgerblue;
+}
+
+.window a:visited {
+    color: mediumslateblue;
+}
+
+.window > * {
+    position: fixed;
+    pointer-events: none;
+}
+
+.sources {
+    left: 0;
+    top: 90vh;
+    pointer-events: auto;
+    background-color: color-mix(in srgb, midnightblue 50%, transparent);
+}
+
+.sources:hover {
+    top: unset;
+    bottom: 0;
+}
+
+.sources > section {
+    margin: 2em;
+}
+
+/* Project 1: Dot & Line */
+
+#dl > * {
+    transform: translate(-50%,-50%);
+    max-width: 25vw;
+    max-height: 35vh;
+
+    box-shadow: 0 0 10px 10px gray;
+}
+
+@keyframes shoot {
+    from {
+        transform: translate(-50%,-50%) rotate(calc(-1 * var(--angle))) translateX(-50vw) rotate(var(--angle));
+    }
+
+    to {
+        transform: translate(-50%,-50%) rotate(calc(-1 * var(--angle))) translateX(50vw) rotate(var(--angle));
+    }
+}
+
+@supports (animation-timeline: --timeline) {
+    #dl > * {
+        animation-name: shoot;
+        animation-timeline: --timeline;
+        animation-range: cover 0% cover 100%;
+        animation-timing-function: linear;
+    }
+}
+
+#dl-1 {
+    left: 20vw;
+    top: 35vh;
+    --angle: -60deg;
+}
+
+#dl-2 {
+    left: 50vw;
+    top: 35vh;
+    --angle: -150deg;
+}
+
+#dl-3 {
+    left: 80vw;
+    top: 35vh;
+    --angle: -10deg;
+}
+
+#dl-4 {
+    left: 20vw;
+    top: 75vh;
+    --angle: 50deg;
+}
+
+#dl-5 {
+    left: 50vw;
+    top: 75vh;
+    --angle: 110deg;
+}
+
+#dl-6 {
+    left: 80vw;
+    top: 75vh;
+    --angle: 170deg;
+}
+
+/* Project 2: Self Portrait */
+
+#portrait-view {
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#portrait {
+    left: 50vw;
+    top: 55vh;
+    background-color: saddlebrown;
+
+    transform-style: preserve-3d;
+    transform: translate(-50%,-50%);
+}
+
+@keyframes revolve {
+    from {
+        transform: translate(-50%,-50%) perspective(10vw) translateZ(-50vw) rotateY(-270deg) translateZ(50vw);
+    }
+
+    50% {
+        transform: translate(-50%,-50%) perspective(100vw) translateZ(-50vw) rotateY(0) translateZ(50vw);
+    }
+
+    to {
+        transform: translate(-50%,-50%) perspective(10vw) translateZ(-50vw) rotateY(270deg) translateZ(50vw);
+    }
+}
+
+@supports (animation-timeline: --timeline) {
+    #portrait {
+        animation-name: revolve;
+        animation-timeline: --timeline;
+        animation-range: cover 0% cover 100%;
+        animation-timing-function: linear;
+    }
+}
+
+#portrait > img {
+    display: block;
+    margin: 1vw;
+    max-width: 80vw;
+    max-height: 80vh;
+
+    transform: translateZ(2px);
+}
+
+/* Project 3: Collage */
+
+#collage {
+    left: 50%;
+    top: 50%;
+    max-width: 80vw;
+    max-height: 80vh;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes zoom {
+    from {
+        transform: translate(-50%, -50%) rotate(-41deg) scale(16) translate(-15%, -43%);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1) translate(0%, 0%);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(41deg) scale(16) translate(-15%, 43%);
+    }
+}
+
+@supports (animation-timeline: --timeline) {
+    #collage {
+        animation-name: zoom;
+        animation-timeline: --timeline;
+        animation-range: cover 0% cover 100%;
+        animation-timing-function: linear;
+    }
+}
+
+#lightning {
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    opacity: 0;
+}
+
+/* Project 4: Pattern & Project 5: Impressions */
+
+#sim, #cloth {
+    pointer-events: auto;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes dummy {}
+
+@supports (animation-timeline: --timeline) {
+    #sim {
+        animation-name: dummy;
+        animation-timeline: --timeline;
+        animation-range: cover 0% cover 100%;
+        animation-timing-function: linear;
+    }
+}
